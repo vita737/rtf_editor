@@ -1,17 +1,40 @@
 from PyQt6.QtWidgets import *
-from PyQt6.QtGui import QAction ,QFont
+from PyQt6.QtGui import QAction, QFont
+
 
 # Version (V.2.5)
 class Window(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.data_write = None
+        self.to = None
+        self.bg_box = None
+        self.fg_box = None
+        self.update_widgets = None
+        self.underline = QAction('underline')
+        self.italic = None
+        self.bold = None
+        self.font_bg_color = None
+        self.font_color = None
+        self.font_size = None
+        self.font_family = None
+        self.sep2 = None
+        self.sep = None
+        self.paste = None
+        self.cut = None
+        self.copy = None
+        self.sep0 = None
+        self.save = None
+        self.tb = None
+        self.main = None
+        self.data_read = None
         self.showMaximized()
 
         self.init_ui()
         self.dataio()
 
     def dataio(self):
-        self.data_read = open('data.html','r')
+        self.data_read = open('data.html', 'r')
         self.main.append(self.data_read.read())
         self.data_read.close()
 
@@ -56,13 +79,12 @@ class Window(QMainWindow):
         self.font_bg_color.triggered.connect(self.choose_bg)
 
         self.bold = QAction('BOLD')
-        self.bold.triggered.connect(self.makeItBold)
+        self.bold.triggered.connect(self.makeitbold)
 
         self.italic = QAction('italic')
-        self.italic.triggered.connect(self.makeItItalic)
+        self.italic.triggered.connect(self.makeititalic)
 
-        self.underline = QAction('underline')
-        self.underline.triggered.connect(self.markUnderline)
+        self.underline.triggered.connect(self.markunderline)
 
         self.tb.addAction(self.save)
         self.tb.addAction(self.sep0)
@@ -102,27 +124,28 @@ class Window(QMainWindow):
     def choose_fg(self):
         self.fg_box = QColorDialog()
         self.fg_box.open()
-        self.main.setTextColor(self.fg_box.getColor())
+        self.main.setTextColor(self.fg_box.getColor(0))
 
     def choose_bg(self):
         self.bg_box = QColorDialog()
         self.bg_box.open()
-        self.main.setTextBackgroundColor(self.bg_box.getColor())
+        self.main.setTextBackgroundColor(self.bg_box.getColor(0))
 
-    def makeItBold(self):
+    def makeitbold(self):
         self.main.setFontWeight(700)
 
-    def makeItItalic(self):
+    def makeititalic(self):
         self.main.setFontItalic(True)
 
-    def markUnderline(self):
+    def markunderline(self):
         self.main.setFontUnderline(True)
 
     def save_content(self):
         self.to = self.main.toHtml()
-        self.data_write = open('data.html','w')
+        self.data_write = open('data.html', 'w')
         self.data_write.write(self.to)
         self.data_write.close()
+
 
 a = QApplication([])
 
