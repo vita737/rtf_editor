@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import *
-from PyQt6.QtGui import QAction, QFont
+from PyQt6.QtGui import QAction ,QFont
 
 # Version (V.2.5)
 class Window(QMainWindow):
@@ -89,7 +89,7 @@ class Window(QMainWindow):
         for widgets in self.update_widgets:
             widgets.blockSignals(True)
         self.font_family.setCurrentFont(QFont(self.main.currentFont()))
-
+        self.font_size.setValue(int(self.main.fontPointSize()))
         for widgets in self.update_widgets:
             widgets.blockSignals(False)
 
